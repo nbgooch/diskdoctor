@@ -1,0 +1,19 @@
+{
+  "name": "diskdoctor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspaces --if-present",
+    "prod": "npm run prod --workspaces --if-present"
+  },
+  "workspaces": [
+    "packages/ui",
+    "packages/backend"
+  ],
+  "engines": {
+    "node": "v21.1.0",
+    "npm": "10.2.0"
+  }
+}

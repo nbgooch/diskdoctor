@@ -1,0 +1,5 @@
+**/*.spec.ts
+**/*.lint.ts
+src/public/
+build.ts
+**/dist/**

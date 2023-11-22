@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon --exec 'ts-node' src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "eslint . --fix && prettier --write '**/*.{ts, js, json, md}' '!.nyc_output/**' '!.travis.yml' '!.vscode' '!coverage/**' '!dist/**' '!package-lock.json' .",
+    "lint": "eslint . --ext .ts && prettier --list-different '**/*.{ts, js, json, md}' '!.nyc_output/**' '!.travis.yml' '!.vscode' '!coverage/**' '!dist/**' '!package-lock.json' ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "dotenv": "^16.3.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "array-gpio": "^1.7.2",
+    "i2c-bus": "^5.2.3",
+    "rpio": "^2.4.2",
+    "typescript": "^5.2.2"
+  }
+}
