@@ -3,17 +3,17 @@ import 'dotenv/config';
 import lsm6dsl from '../config/lsm6dsl';
 
 export default class Accelerometer {
-  wire: any
+  bus: any
   config: any;
   counter: number;
   sensitivity: number;
   constructor() {
     console.log(`Creating accelerometer bus`);
     try {
+      this.sensitivity = .122;
       this.counter = 0;
       this.config = lsm6dsl;
-      this.wire = i2c.openSync(1);
-      this.sensitivity = .122;
+      this.bus = i2c.openSync(1);
     } catch (err: any) {
       console.error(`Failed to create accelerometer ${err}`);
       throw err;
@@ -27,11 +27,11 @@ export default class Accelerometer {
     try {
       // const wBuf = Buffer.from([0b10011111,0b11001000,0b01000100])
       // ODR 3.33 KHz, +/- 4g , BW = 400hz 0b10011111 0x9F
-      this.wire.writeByteSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_CTRL1_XL, 0b10011011);
+      this.bus.writeByteSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_CTRL1_XL, 0b10011011);
       // Low pass filter enabled, BW9, composite filter 0b11001000 0xC8
-      this.wire.writeByteSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_CTRL8_XL, 0b11001000);
+      this.bus.writeByteSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_CTRL8_XL, 0b11001000);
       // Enable Block Data update, increment during multi byte read 0b01000100 0x44
-      this.wire.writeByteSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_CTRL3_C, 0b01000100);
+      this.bus.writeByteSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_CTRL3_C, 0b01000100);
 
     } catch (e) {
       console.error(`Failed to initialize: ${e}`)
@@ -48,7 +48,7 @@ export default class Accelerometer {
       let buf = Buffer.alloc(6);
 
       try {
-        const bytes = this.wire.readI2cBlockSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_OUTX_L_XL, buf.length, buf);
+        const bytes = this.bus.readI2cBlockSync(this.config.LSM6DSL_ADDRESS, this.config.LSM6DSL_OUTX_L_XL, buf.length, buf);
       } catch (err) {
         throw err;
       }
